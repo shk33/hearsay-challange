@@ -59,5 +59,5 @@ To log into the application, use any of the following credentials:
 *   **Test User 1:** `test1@example.com` / `password1`
 *   **Test User 2:** `test2@example.com` / `password2`
 
-*   **Upload Files:** Navigate through the extraction flow to upload file metadata.
+*   **Upload Files:** Navigate through the extraction flow to upload file metadata. (Note: The upload progress bar is a simulated UI for design demonstration purposes.)
 *   **Dashboard:** View the list of uploaded files on the dashboard.
