@@ -16,7 +16,7 @@ const Header = () => {
         <nav>
           {session ? (
             <div className="flex items-center space-x-4">
-              <Link href="/upload" className="hover:text-purple-300">
+              <Link href="/extraction/source" className="hover:text-purple-300">
                 Upload
               </Link>
               <Link href="/dashboard" className="hover:text-purple-300">

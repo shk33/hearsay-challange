@@ -9,9 +9,9 @@ const HomePage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'loading') return; // Do nothing while loading
+    if (status === 'loading') return;
     if (session) {
-      router.push('/extraction/platform');
+      router.push('/extraction/source');
     } else {
       router.push('/login');
     }

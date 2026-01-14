@@ -7,14 +7,20 @@ import FileUploader from '../components/FileUploader';
 import Uploading from '../components/Uploading';
 import UploadComplete from '../components/UploadComplete';
 
-type UploadStep = 'upload' | 'uploading' | 'complete';
+enum UploadSteps {
+  UPLOAD = 'upload',
+  UPLOADING = 'uploading',
+  COMPLETE = 'complete',
+}
 
 const UploadPage = () => {
-  const [uploadStep, setUploadStep] = useState<UploadStep>('upload');
+  const [uploadStep, setUploadStep] = useState<UploadSteps>(UploadSteps.UPLOAD);
+  const [resetKey, setResetKey] = useState(0);
   const router = useRouter();
 
   const handleUpload = async (files: File[]) => {
-    setUploadStep('uploading');
+    setUploadStep(UploadSteps.UPLOADING);
+    setResetKey((prevKey) => prevKey + 1);
 
     const uploadPromises = files.map((file) => {
       return fetch('/api/upload', {
@@ -31,29 +37,40 @@ const UploadPage = () => {
 
     try {
       await Promise.all(uploadPromises);
-      setUploadStep('complete');
     } catch (error) {
       console.error('Upload failed', error);
-      // Handle error, maybe go back to the upload step with an error message
-      setUploadStep('upload');
+      setUploadStep(UploadSteps.UPLOAD);
     }
   };
 
+  const handleUploadComplete = () => {
+    setUploadStep(UploadSteps.COMPLETE);
+  };
+
   const handleShareMore = () => {
-    router.push('/extraction/platform');
+    router.push('/extraction/source');
   };
 
   const handleGoToDashboard = () => {
     router.push('/dashboard');
   };
 
+  const handleBack = () => {
+    router.back();
+  };
+
   const renderStep = () => {
     switch (uploadStep) {
-      case 'upload':
-        return <FileUploader onUpload={handleUpload} />;
-      case 'uploading':
-        return <Uploading />;
-      case 'complete':
+      case UploadSteps.UPLOAD:
+        return <FileUploader onUpload={handleUpload} onBack={handleBack} />;
+      case UploadSteps.UPLOADING:
+        return (
+          <Uploading
+            key={resetKey}
+            onUploadComplete={handleUploadComplete}
+          />
+        );
+      case UploadSteps.COMPLETE:
         return (
           <UploadComplete
             onShareMore={handleShareMore}
@@ -67,7 +84,7 @@ const UploadPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="w-full max-w-lg p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <div className="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-md">
         {renderStep()}
       </div>
     </div>

@@ -1,14 +1,15 @@
 
 'use client';
 
-import { CheckCircle, X, File as FileIcon } from 'lucide-react';
+import { CheckCircle, X, Folder as FolderIcon } from 'lucide-react';
 import { useState, useRef } from 'react';
 
 interface FileUploaderProps {
   onUpload: (files: File[]) => void;
+  onBack: () => void;
 }
 
-const FileUploader = ({ onUpload }: FileUploaderProps) => {
+const FileUploader = ({ onUpload, onBack }: FileUploaderProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -29,21 +30,21 @@ const FileUploader = ({ onUpload }: FileUploaderProps) => {
   };
 
   return (
-    <div className="text-gray-900 dark:text-white">
+    <div className="text-gray-900">
       <div className="text-center">
         <span className="text-sm text-purple-500">Starting Extraction</span>
         <h1 className="text-2xl font-bold mt-2">File Upload</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">Select files to upload for review</p>
+        <p className="text-gray-600 mt-2">Select files to upload for review</p>
       </div>
       <div className="mt-8">
-        <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
           <div className="flex items-center">
-            <FileIcon className="text-gray-500" />
+            <FolderIcon className="text-gray-500" />
             <span className="ml-2 text-gray-500">Find files to upload</span>
           </div>
           <button
             onClick={handleBrowseClick}
-            className="px-4 py-2 font-bold text-white bg-purple-600 rounded-md hover:bg-purple-700"
+            className="px-4 py-2 font-bold text-blue-800 bg-blue-200 rounded-md hover:bg-blue-300"
           >
             Browse
           </button>
@@ -59,7 +60,7 @@ const FileUploader = ({ onUpload }: FileUploaderProps) => {
           {files.map((file, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md"
+              className="flex items-center justify-between p-2 bg-gray-100 rounded-md"
             >
               <div className="flex items-center">
                 <CheckCircle className="text-green-500" />
@@ -67,7 +68,7 @@ const FileUploader = ({ onUpload }: FileUploaderProps) => {
               </div>
               <button
                 onClick={() => handleRemoveFile(index)}
-                className="text-gray-400 hover:text-white"
+                className="text-gray-400 hover:text-gray-700"
               >
                 <X size={16} />
               </button>
@@ -82,6 +83,12 @@ const FileUploader = ({ onUpload }: FileUploaderProps) => {
             Upload Now
           </button>
         )}
+        <button
+          onClick={onBack}
+          className="w-full px-4 py-3 mt-4 font-bold text-gray-900 bg-gray-200 rounded-md hover:bg-gray-300"
+        >
+          Back
+        </button>
       </div>
     </div>
   );
