@@ -4,7 +4,7 @@ This project is a file uploader application built with the Next.js framework. It
 
 Project URL: [https://hearsay-challange.vercel.app/](https://hearsay-challange.vercel.app/)
 
-In #users there is a list of users you can use to log in.
+In [users](#users) there is a list of users you can use to log in.
 
 ## Technologies Used
 
