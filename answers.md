@@ -23,12 +23,12 @@ prevent an error in a single component from crashing the entire app, you wrap
 critical components with error boundaries, and if an error occurs during rendering, 
 the error boundary will display a fallback UI.
 
-I also have an `Robustness` Section in answer of question 2 that highly relates to this question. Take a look [here](#Robustness)
+I also added a `Robustness` Section in answer of Question 2 that highly relates to this question. Take a look [here](#Robustness)
 
 # 2. Handling Actual File Uploads
 
 The approach that I will use is using a storage solution, like AWS S3 or GCloud Storage, 
-
+ 
 I would add these modifications:
 
 ### Backend
